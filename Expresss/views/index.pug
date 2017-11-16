@@ -1,0 +1,16 @@
+doctype html
+html(lang='en')
+    head
+        title Pug
+
+    body
+        form(action='/result', method='POST')
+            p
+            | name: 
+            input(type='text', name='name', placeholder='Enter the name')
+            p 
+            | year: 
+            input(type='text', name='year', placeholder='Enter a year')
+            p
+            |
+            input(type='submit', value='Submit')
