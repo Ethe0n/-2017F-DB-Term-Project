@@ -35,6 +35,7 @@ class Server {
 		
 		public void run(){
 			try{
+				System.out.println("thread runs");
 				PrintWriter out = new PrintWriter(client.getOutputStream(), true); 
 				BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
 
@@ -47,6 +48,7 @@ class Server {
 				System.out.println("Send : " + rcvMessage);
 				
 				out.close();
+				
 				in.close();
 			}catch(IOException e){
 				System.err.println(e);

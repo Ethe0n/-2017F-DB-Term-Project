@@ -1,6 +1,4 @@
 var net = require('net');
-var rcvData;
-var socket;
 
 function getConnection(connName) {
     var client = net.connect({ port: 4321, host: '127.0.0.1' }, function () {
@@ -52,8 +50,7 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
-var futures = require('futures');
-var sequence = futures.sequence();
+var async = require('async');
 
 app.locals.pretty = true;
 
@@ -69,31 +66,49 @@ app.get('/', function (req, res) {
 
 app.listen(8080, function () {
     console.log('http server> listening on port 8080...');
-    socket = getConnection('JAVA TCP Server');
 });
 
 app.post('/result', function (req, res) {
-    sequence
-        .then(function (next) {
+    async.waterfall([
+        function(callback) {
             var jsonData = {
                 name: req.body.name,
                 year: req.body.year
             };
-            console.log('write data');
-            writeData(socket, JSON.stringify(jsonData), function(data){
-                rcvData = JSON.parse(data); 
+            socket = net.connect({ port: 4321, host: '127.0.0.1' });
+            console.log('socket connected');
+            callback(null, jsonData, socket);
+        },
+        function(data, socket, callback) {
+            socket.write(JSON.stringify(data) + '\n');
+            console.log('write data to server');
+            var rcvData;
+
+            socket.on('data', function(data) {
+                rcvData = JSON.parse(data);
+                console.log("From Server: " + rcvData.year);
                 socket.end();
-                console.log('get data' + rcvData);
-                next(null, 2);
+                callback(null, rcvData);
             });
-        })
-        .then(function (next) {
-            console.log('render function enter');
-            console.log('rcvData : ' + rcvData);
-            res.render('result', {
-                name: rcvData.name,
-                year: rcvData.year
-            });
-            next(null, 4);
-        });
+        },
+        function (data, callback) {
+            if (data === undefined) {
+                callback('undefined info', 'error');
+            }
+            else {
+                res.render('result', {
+                    name: data.name,
+                    year: data.year
+                });
+                callback(null, 'render successful');
+            }
+        }
+    ], function(err, result) {
+        if (err === null) {
+            console.log('run successful : ' + result);
+        }
+        else {
+            console.log('error occurred : ' + error);
+        }
+    });
 });
