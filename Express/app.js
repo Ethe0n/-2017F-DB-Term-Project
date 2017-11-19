@@ -1,48 +1,6 @@
 var net = require('net');
-
-function getConnection(connName) {
-    var client = net.connect({ port: 4321, host: '127.0.0.1' }, function () {
-        console.log(connName + ' Connected: ');
-        console.log('   local = %s:%s', this.localAddress, this.localPort);
-        console.log('   remote = %s:%s', this.remoteAddress, this.remotePort);
-        this.setEncoding('utf8');
-
-        // this.on('data', function (data) {
-        //     rcvData = JSON.parse(data);
-        //     console.log("From Server: " + rcvData.year);
-        //     this.end();
-        // });
-
-        this.on('end', function () {
-            console.log(connName + ' Client disconnected');
-        });
-        this.on('error', function (err) {
-            console.log('Socket Error: ', JSON.stringify(err));
-        });
-        this.on('timeout', function () {
-            console.log('Socket Timed Out');
-        });
-        this.on('close', function () {
-            console.log('Socket Closed');
-        });
-    });
-    return client;
-}
-
-function writeData(socket, data, callback) {
-    socket.on('data', function (data) {
-        callback(data);
-    });
-
-    var success = !socket.write(data);
-    if (!success) {
-        (function (socket, data) {
-            socket.once('drain', function () {
-                writeData(socket, data);
-            });
-        })(socket, data);
-    }
-}
+const tcp_port = 4321;
+const http_port = 8080;
 
 // http server
 var promise = require('promise');
@@ -64,7 +22,7 @@ app.get('/', function (req, res) {
     res.render('index');
 });
 
-app.listen(8080, function () {
+app.listen(http_port, function () {
     console.log('http server> listening on port 8080...');
 });
 
@@ -75,7 +33,7 @@ app.post('/result', function (req, res) {
                 name: req.body.name,
                 year: req.body.year
             };
-            socket = net.connect({ port: 4321, host: '127.0.0.1' });
+            socket = net.connect({ port: tcp_port, host: '127.0.0.1' });
             console.log('socket connected');
             callback(null, jsonData, socket);
         },
