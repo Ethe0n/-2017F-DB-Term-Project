@@ -1,0 +1,45 @@
+body{
+	margin: 0;
+	font: 12pt Consolas;
+	color: white;
+	text-align: center;
+	background: #111;
+}
+section{
+	display: inline-block;
+	padding: 5px;
+	border: 1px solid #333;
+	margin: 5px;
+	width: 500px;
+}
+	section>.head{
+		font-size: 9pt;
+		border-bottom: 1px solid #222;
+		color: yellowgreen;
+	}
+	section>.body{
+		padding: 5px 0;
+		text-align: left;
+	}
+.status{
+	border-collapse: collapse;
+	table-layout: fixed;
+	color: #CCC;
+}
+	.status td.key{
+		width: 100px;
+	}
+	.status td.value{
+		width: 150px;
+		color: white;
+	}
+table{
+	border : 1px solid #CCC;
+	border-color : red;
+	background-color : #333;
+	text-align: middle;
+	width: 500px;
+}
+th, td {
+	border : 1px solid #CCC;
+}

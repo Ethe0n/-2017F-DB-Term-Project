@@ -19,7 +19,13 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/', function (req, res) {
-    res.render('index');
+    res.render('index', {
+        potatoes: [
+            'Yukon Gold',
+            'Russet',
+            'Opperdoezer Ronde'
+        ]
+    });
 });
 
 app.listen(http_port, function () {

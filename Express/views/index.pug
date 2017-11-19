@@ -1,8 +1,9 @@
 doctype html
 html(lang='en')
     head
-        title Pug
-
+        meta(charset='UTF-8')
+        link(rel="stylesheet", href="/css/style.css")
+        title Index
     body
         form(action='/result', method='POST')
             p
@@ -14,3 +15,13 @@ html(lang='en')
             p
             |
             input(type='submit', value='Submit')
+        table 
+            tr
+            each potato in potatoes 
+                th=potato
+            tr 
+                td 1
+                td 김영희
+            tr 
+                td 2
+                td 김순자
