@@ -8,7 +8,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 class Server {
-	static final int port = 5000; // 상수값으로 port 번호 설정
+	static final int port = 4321; // 상수값으로 port 번호 설정
 	
 	public static void main(String[] args) {
 		try(ServerSocket server = new ServerSocket(port)){
