@@ -21,9 +21,44 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.get('/', function (req, res) {
     res.render('index', {
         potatoes: [
-            'Yukon Gold',
-            'Russet',
-            'Opperdoezer Ronde'
+            {
+                id : 1,
+                name : 'french fries',
+                year : 2015
+            },
+            {
+                id : 2,
+                name : 'smashed potato',
+                year : 2016
+            },
+            {
+                id : 3,
+                name : 'freaky potato',
+                year : 2017
+            }
+        ]
+    });
+});
+
+app.post('/api/region', function(req, res) {
+    console.log('render /api/region ');
+	res.render('index', {
+        potatoes: [
+            {
+                id : 3,
+                name : 'potato is fried',
+                year : 2017
+            },
+            {
+                id : 2,
+                name : 'potato is smashed',
+                year : 2016
+            },
+            {
+                id : 1,
+                name : 'potato is freaky',
+                year : 2015
+            }
         ]
     });
 });

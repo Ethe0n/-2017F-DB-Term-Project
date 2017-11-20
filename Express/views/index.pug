@@ -3,25 +3,52 @@ html(lang='en')
     head
         meta(charset='UTF-8')
         link(rel="stylesheet", href="/css/style.css")
+        script(type="text/javascript", src="/js/jquery-min.js")
         title Index
+        script(type="text/javascript").
+            $(document).ready(function(){
+                $('#Region').click(function() {
+                    $.post(
+                        '/api/region',
+                        {searchFor : 'Region'},
+                        function(data) {
+                            console.log(data);
+                            $("#result_table").replaceWith($(data).find("#result_table"));
+                        },
+                        'html'
+                    );
+                });
+            });
     body
-        form(action='/result', method='POST')
-            p
-            | name: 
-            input(type='text', name='name', placeholder='Enter the name')
-            p 
-            | year: 
-            input(type='text', name='year', placeholder='Enter a year')
+        section
+            //- form(action='/result', method='POST')
+            //- p
+            //- | name: 
+            //- input(type='text', name='name', placeholder='Enter the name')
+            //- p 
+            //- | year: 
+            //- input(type='text', name='year', placeholder='Enter a year')
+            //- p
+            //- |
+            //- input(type='submit', value='Submit')
             p
             |
-            input(type='submit', value='Submit')
-        table 
-            tr
-            each potato in potatoes 
-                th=potato
-            tr 
-                td 1
-                td 김영희
-            tr 
-                td 2
-                td 김순자
+            input(type='button', id='Region', value='지역별')
+            |
+            input(type='button', id='Theme', value='주제별')
+            |
+            input(type='text', id='Searchword', placeholder='검색어를 입력해주세요')
+            |
+            input(type='button', id='Search', value='검색')
+        p
+            section
+                table#result_table
+                    tr
+                        th 이름
+                        th 일정
+                        th 지역
+                    each potato in potatoes  
+                        tr 
+                            td= potato.id
+                            td= potato.name
+                            td= potato.year
