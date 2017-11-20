@@ -20,59 +20,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/', function (req, res) {
     res.render('index', {
-        potatoes: [
-            {
-                id : 1,
-                name : 'french fries',
-                year : 2015
-            },
-            {
-                id : 2,
-                name : 'smashed potato',
-                year : 2016
-            },
-            {
-                id : 3,
-                name : 'freaky potato',
-                year : 2017
-            }
-        ]
+        results : []
     });
 });
 
-app.post('/api/region', function(req, res) {
-    console.log('render /api/region ');
-	res.render('index', {
-        potatoes: [
-            {
-                id : 3,
-                name : 'potato is fried',
-                year : 2017
-            },
-            {
-                id : 2,
-                name : 'potato is smashed',
-                year : 2016
-            },
-            {
-                id : 1,
-                name : 'potato is freaky',
-                year : 2015
-            }
-        ]
-    });
-});
-
-app.listen(http_port, function () {
-    console.log('http server> listening on port 8080...');
-});
-
-app.post('/result', function (req, res) {
+app.post('/api/result', function(req, res) {
     async.waterfall([
         function(callback) {
             var jsonData = {
-                name: req.body.name,
-                year: req.body.year
+                searchFor : req.body.searchFor
             };
             socket = net.connect({ port: tcp_port, host: '127.0.0.1' });
             console.log('socket connected');
@@ -95,10 +51,7 @@ app.post('/result', function (req, res) {
                 callback('undefined info', 'error');
             }
             else {
-                res.render('result', {
-                    name: data.name,
-                    year: data.year
-                });
+                res.render('index', data);
                 callback(null, 'render successful');
             }
         }
@@ -110,4 +63,8 @@ app.post('/result', function (req, res) {
             console.log('error occurred : ' + error);
         }
     });
+});
+
+app.listen(http_port, function () {
+    console.log('http server> listening on port 8080...');
 });

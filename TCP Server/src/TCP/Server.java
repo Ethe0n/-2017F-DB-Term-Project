@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -90,20 +91,53 @@ class Server {
 			System.out.println("Send : " + message);
 		}
 		
+		/*
+		 * 데이터를 변경하는 함수
+		 * Docs : http://juliusdavies.ca/json-simple-1.1.1-javadocs/org/json/simple/JSONObject.html
+		 */
+		@SuppressWarnings("unchecked")
 		public String queryData(String message) throws Exception
 		{
 			// 1. Parse String
 			JSONParser parser = new JSONParser();
 			JSONObject obj = (JSONObject) parser.parse(message);
 			JSONObject result = new JSONObject();
+			JSONArray list = new JSONArray();
 			
 			// 2. Get data 
-			String name = (String)obj.get("name");
-			String year = (String)obj.get("year");
-
+			String searchFor = (String)obj.get("searchFor");
+			System.out.println("search for what? " + searchFor);
+			
 			// 3. Modify data
-			result.put("name", name + "?");
-			result.put("year", year + "?");
+			JSONObject temp = new JSONObject();
+			if (searchFor.equals("Theme")) {
+				System.out.println("Theme Search");
+				temp.put("id", "1");
+				temp.put("name", "Theme search");
+				temp.put("year", 2015);
+				list.add(temp);
+				list.add(temp);
+				list.add(temp);
+			}
+			else if (searchFor.equals("Region")) {
+				System.out.println("Region Search");
+				temp.put("id", 2);
+				temp.put("name", "Region search");
+				temp.put("year", 2017);
+				list.add(temp);
+				list.add(temp);
+				list.add(temp);
+			}
+			else {
+				System.out.println("Custom Search");
+				temp.put("id", 3);
+				temp.put("name", "Custom search");
+				temp.put("year", 2020);
+				list.add(temp);
+				list.add(temp);
+				list.add(temp);
+			}
+			result.put("results", list);
 			
 			// 4. return JSON String
 			return result.toJSONString();

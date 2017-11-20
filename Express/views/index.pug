@@ -9,8 +9,37 @@ html(lang='en')
             $(document).ready(function(){
                 $('#Region').click(function() {
                     $.post(
-                        '/api/region',
+                        '/api/result',
                         {searchFor : 'Region'},
+                        function(data) {
+                            console.log(data);
+                            $("#result_table").replaceWith($(data).find("#result_table"));
+                        },
+                        'html'
+                    );
+                });
+                $('#Theme').click(function() {
+                    $.post(
+                        '/api/result',
+                        {searchFor : 'Theme'},
+                        function(data) {
+                            console.log(data);
+                            $("#result_table").replaceWith($(data).find("#result_table"));
+                        },
+                        'html'
+                    );
+                });
+                $('#Search').click(function() {
+                    var word = $("#Searchword").val();
+                    $.trim(word);
+                    if (!$.trim(word)) {
+                        alert('검색어를 입력해주세요');
+                        $('#Searchword').val('');
+                        return;
+                    }
+                    $.post(
+                        '/api/result',
+                        {searchFor : $.trim(word)},
                         function(data) {
                             console.log(data);
                             $("#result_table").replaceWith($(data).find("#result_table"));
@@ -21,16 +50,6 @@ html(lang='en')
             });
     body
         section
-            //- form(action='/result', method='POST')
-            //- p
-            //- | name: 
-            //- input(type='text', name='name', placeholder='Enter the name')
-            //- p 
-            //- | year: 
-            //- input(type='text', name='year', placeholder='Enter a year')
-            //- p
-            //- |
-            //- input(type='submit', value='Submit')
             p
             |
             input(type='button', id='Region', value='지역별')
@@ -47,8 +66,8 @@ html(lang='en')
                         th 이름
                         th 일정
                         th 지역
-                    each potato in potatoes  
+                    each result in results  
                         tr 
-                            td= potato.id
-                            td= potato.name
-                            td= potato.year
+                            td= result.id
+                            td= result.name
+                            td= result.year
