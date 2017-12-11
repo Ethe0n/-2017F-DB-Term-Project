@@ -20,7 +20,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/', function (req, res) {
     res.render('index', {
-        results : []
+        results : [],
+        tablehead : [],
+        link_name : 'https://www.naver.com/'
     });
 });
 
@@ -41,7 +43,6 @@ app.post('/api/result', function(req, res) {
 
             socket.on('data', function(data) {
                 rcvData = JSON.parse(data);
-                console.log("From Server: " + rcvData.year);
                 socket.end();
                 callback(null, rcvData);
             });
@@ -51,6 +52,7 @@ app.post('/api/result', function(req, res) {
                 callback('undefined info', 'error');
             }
             else {
+                console.log(data.link_name);
                 res.render('index', data);
                 callback(null, 'render successful');
             }

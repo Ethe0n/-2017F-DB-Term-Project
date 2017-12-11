@@ -139,6 +139,27 @@ class Server {
 			}
 			result.put("results", list);
 			
+			// Table heads
+			String[] headString = {
+					"id", "name", "year"
+			};
+			
+			JSONArray tableHeads = new JSONArray();
+			for (String a : headString) {
+				JSONObject tableHead = new JSONObject();
+				tableHead.put("name", a);
+				tableHeads.add(tableHead);
+			}
+			if (searchFor.equals("Region")) {
+				JSONObject tableHead = new JSONObject();
+				tableHead.put("name", "for test");
+				tableHeads.add(tableHead);
+			}
+			result.put("tablehead", tableHeads);
+			
+			JSONObject link = new JSONObject();
+			result.put("link_name", "https://www.google.co.kr/");
+			
 			// 4. return JSON String
 			return result.toJSONString();
 		}
