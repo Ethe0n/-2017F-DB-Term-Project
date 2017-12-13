@@ -39,11 +39,15 @@ app.post('/api/result', function(req, res) {
         function(data, socket, callback) {
             socket.write(JSON.stringify(data) + '\n');
             console.log('write data to server');
-            var rcvData;
+            var chunks = [];
 
-            socket.on('data', function(data) {
-                rcvData = JSON.parse(data);
-                socket.end();
+            socket.on('data', function(chunk) {
+                chunks.push(chunk);
+            });
+
+            socket.on('end', function() {
+                var rcvData = Buffer.concat(chunks);
+                rcvData = JSON.parse(rcvData);
                 callback(null, rcvData);
             });
         },
