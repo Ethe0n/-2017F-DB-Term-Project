@@ -70,9 +70,9 @@ html(lang='en')
                         th= head.name
                     each result in results  
                         tr 
-                            td= result.id
-                            td= result.name
-                            td= result.year
+                            td(style={width : '20%'})= result.id
+                            td(style={width : '50%'})= result.name
+                            td(style={width : '30%'})= result.year
         p
             section
                 p
