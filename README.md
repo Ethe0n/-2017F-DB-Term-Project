@@ -15,4 +15,3 @@ https://nodejs.org/ko/
 
 4. Express 서버에서 커맨드 창을 열어 
 > node app 
-입력하여 실행
