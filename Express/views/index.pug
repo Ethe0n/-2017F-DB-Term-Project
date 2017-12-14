@@ -1,37 +1,126 @@
-doctype html
+﻿doctype html
 html(lang='en')
     head
         meta(charset='UTF-8')
-        link(rel="stylesheet", href="/css/style.css")
+        meta(name-"robots", content="noindex")
+        meta(name="viewport" content="width=device-width, initial-scale=1")
+        meta(http-equiv="X-UA-Compatible" content="IE=edge, chrome=1")
+        link(rel="stylesheet", href="/css/main.css")
         script(type="text/javascript", src="/js/jquery-min.js")
-        title Index
+        title LIFE IS A FESTIVAL
         script(type="text/javascript").
             $(document).ready(function(){
                 $('#Region').click(function() {
+                    var select = document.getElementById("searchForregion");
+                    var submit = document.getElementById("selectsubmit");
+                    if(select.style.display=='none'){
+                        select.style.display = 'inline-block';
+                        submit.style.display = 'inline-block';
+                    }
+                    select = document.getElementById("Searchword");
+                    submit = document.getElementById("SearchSubmit");
+                    if(select.style.display=='inline-block'){
+                        select.style.display = 'none';
+                        submit.style.display = 'none';
+                    }
+                    select = document.getElementById("SearchSeason");
+                    submit = document.getElementById("SeasonSubmit");
+                    if(select.style.display=='inline-block'){
+                        select.style.display = 'none';
+                        submit.style.display = 'none';
+                    }
+
+
+
+                });
+                $('#selectsubmit').click(function() {
+
+                    var selected = $("#searchForregion option:selected").val();
+                    alert(selected);
                     $.post(
                         '/api/result',
-                        {searchFor : 'Region'},
+                        { searchFor : 'Region', search : selected },
                         function(data) {
                             console.log(data);
-                            $("#result_table").replaceWith($(data).find("#result_table"));
                             $("#site_link").replaceWith($(data).find("#site_link"));
+                            $("#result_table").replaceWith($(data).find("#result_table"));
                         },
                         'html'
                     );
+
                 });
-                $('#Theme').click(function() {
+                $('#Season').click(function() {
+
+                    var select = document.getElementById("searchForregion");
+                    var submit = document.getElementById("selectsubmit");
+                    if(select.style.display=='inline-block'){
+                        select.style.display = 'none';
+                        submit.style.display = 'none';
+                    }
+
+                    select = document.getElementById("Searchword");
+                    submit = document.getElementById("SearchSubmit");
+                    if(select.style.display=='inline-block'){
+                        select.style.display = 'none';
+                        submit.style.display = 'none';
+                    }
+
+                    select = document.getElementById("SearchSeason");
+                    submit = document.getElementById("SeasonSubmit");
+                    if(select.style.display=='none'){
+                        select.style.display = 'inline-block';
+                        submit.style.display = 'inline-block';
+                    }
+
+                
+                });
+                 $('#SeasonSubmit').click(function() {
+
+                  var word = $("#SearchSeason").val();
+                    $.trim(word);
+                    if (!$.trim(word)) {
+                        alert('계절을 입력해주세요');
+                        $('#SearchSeason').val('');
+                        return;
+                    }
                     $.post(
                         '/api/result',
-                        {searchFor : 'Theme'},
+                        {searchFor : 'Season', search : $.trim(word)},
                         function(data) {
                             console.log(data);
-                            $("#result_table").replaceWith($(data).find("#result_table"));
                             $("#site_link").replaceWith($(data).find("#site_link"));
+                            $("#result_table").replaceWith($(data).find("#result_table"));
                         },
                         'html'
                     );
+
                 });
+
+                
                 $('#Search').click(function() {
+
+                    var select = document.getElementById("searchForregion");
+                    var submit = document.getElementById("selectsubmit");
+                    if(select.style.display=='inline-block'){
+                        select.style.display = 'none';
+                        submit.style.display = 'none';
+                    }
+
+                    select = document.getElementById("Searchword");
+                    submit = document.getElementById("SearchSubmit");
+                    if(select.style.display=='none'){
+                        select.style.display = 'inline-block';
+                        submit.style.display = 'inline-block';
+                    }
+                    select = document.getElementById("SearchSeason");
+                    submit = document.getElementById("SeasonSubmit");
+                    if(select.style.display=='inline-block'){
+                        select.style.display = 'none';
+                        submit.style.display = 'none';
+                    }
+
+                });
+                $('#SearchSubmit').click(function() {
                     var word = $("#Searchword").val();
                     $.trim(word);
                     if (!$.trim(word)) {
@@ -41,40 +130,96 @@ html(lang='en')
                     }
                     $.post(
                         '/api/result',
-                        {searchFor : $.trim(word)},
+                        {searchFor : 'Search', search: $.trim(word)},
                         function(data) {
                             console.log(data);
-                            $("#result_table").replaceWith($(data).find("#result_table"));
                             $("#site_link").replaceWith($(data).find("#site_link"));
+                            $("#result_table").replaceWith($(data).find("#result_table"));
                         },
                         'html'
                     );
                 });
+            
             });
-    body
-        section
-            p
-            |
-            input(type='button', id='Region', value='지역별')
-            |
-            input(type='button', id='Theme', value='주제별')
-            |
-            input(type='text', id='Searchword', placeholder='검색어를 입력해주세요')
-            |
-            input(type='button', id='Search', value='검색')
-        p
-            section
-                table#result_table
-                    tr
-                    each head in tablehead
-                        th= head.name
-                    each result in results  
-                        tr 
-                            td(style={width : '20%'})= result.id
-                            td(style={width : '50%'})= result.name
-                            td(style={width : '30%'})= result.year
-        p
-            section
-                p
-                |
-                a#site_link(href= link_name) Link
+    body(class="landing")
+        div(id="page-wrapper")
+            section(id="banner")
+                div(class="inner")
+                    h2 Life is a Festival
+                    p 데이터베이스 4조
+                    ul(class="actions")
+                a(class="more scrolly") Learn More
+            div(align="center")
+                div(class="mycontainer" style="width:80%; height:80%" align="center")
+                                section
+                                    p
+                                    |
+                                    input(type='button', id='Region', value='지역별')
+                                    |
+                                    input(type='button', id='Season', value='계절별')
+                                    |
+                                    input(type='button', id='Search', value='검색')
+                                p
+                                section
+                                    p
+                                    |
+                                    select(id='searchForregion' align='absmiddle' style="display:none")
+                                        |
+                                        option(value='서울특별시', id='1' selected) 서울특별시
+                                        |
+                                        option(value='인천광역시', id='2') 인천광역시
+                                        |
+                                        option(value='대전광역시', id='3') 대전광역시
+                                        |
+                                        option(value='대구광역시', id='4') 대구광역시
+                                        |                            
+                                        option(value='광주광역시', id='5') 광주광역시
+                                        |                             
+                                        option(value='울산광역시', id='6') 울산광역시
+                                        |                             
+                                        option(value='부산광역시', id='7') 부산광역시
+                                        |                             
+                                        option(value='경기도', id='8') 경기도
+                                        |                             
+                                        option(value='강원도', id='9') 강원도
+                                        |                             
+                                        option(value='충청남도', id='10') 충청남도
+                                        |                             
+                                        option(value='충청북도', id='11') 충청북도
+                                        |                             
+                                        option(value='경상남도', id='12') 경상남도 
+                                        |                             
+                                        option(value='경상북도', id='13') 경상북도
+                                        |                             
+                                        option(value='전라남도', id='14') 전라남도
+                                        |                                       
+                                        option(value='전라북도', id='15') 전라북도
+                                        |                                       
+                                        option(value='제주도', id='16') 제주도
+                                        input(type='sbutton', id='selectsubmit', value='click' align='absmiddle' style="display:none")
+                                        input(type='text', id='SearchSeason', placeholder='계절을 입력해주세요' align='absmiddle' style="display:none")
+                                        input(type='text', id='Searchword', placeholder='검색어를 입력해주세요' align='absmiddle' style="display:none")
+                                        input(type='sbutton', id='SeasonSubmit', value='click' align='absmiddle' style="display:none")
+                                        input(type='sbutton', id='SearchSubmit', value='click' align='absmiddle' style="display:none")
+                                p
+                                p
+                                    section
+                                        table#result_table
+                                            tr
+                                            each head in tablehead
+                                                th= head.name
+                                            each result in results  
+                                                tr 
+                                                    td= result.fname 
+                                                    td= result.address
+                                                    td= result.start_date
+                                                    td= result.end_date
+                                                    td= result.oname
+                                                    td(style={width:'60',style:'table-layout;fixed'})= result.h_address
+                                                    td(style={width:'60',style:'table-layout;fixed'})= result.tourist_attraction
+                                p
+                                    section
+                                        p
+                                        |
+                                        a#site_link(href= link_name style="display:none") Link
+                                        

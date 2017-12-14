@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<!--
+   Spectral by HTML5 UP
+   html5up.net | @ajlkn
+   Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+   <head>
+      <title>TRIPly</title>
+        <meta name="robots" content="noindex"> 
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+
+      <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+      <link rel="stylesheet" href="main.css" />
+      <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+      <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+   </head>
+   <body class="landing">
+
+      <!-- Page Wrapper -->
+         <div id="page-wrapper">
+
+
+            <!-- Banner -->
+               <section id="banner">
+                  <div class="inner">
+                     <h2>Life is a Festival</h2>
+                     <p>데이터베이스 4조<br>
+                          </p>
+                     <ul class="actions">
+                     </ul>
+                  </div>
+                  <a href="#two" class="more scrolly">Learn More</a>
+               </section>
+
+         
+            <!-- Two -->
+            <div align="center">
+          <br><br><br><br>
+                                  <div class="mycontainer" style="width:80%; height:80%" align="center">
+                                          <section>
+                                                
+                                                  
+                                                  <input type='button', id='Region', value='지역별'>
+                                                  </input>
+                                                  
+                                                  <input type='button', id='Theme', value='주제별'>
+                                                  </input>
+                                                  
+                                                  <input type='button', id='Search', value='검색'>
+                                                  </input>
+                                            
+                                          </section>
+                                              <section>
+                                                  
+                                                  
+                                                  <select id='searchForregion' align='absmiddle' style="display:none">
+                                                  
+                                                       
+                                                       <option value='서울' id='1' selected>서울</option> 
+                                                       
+                                                       <option value='대구' id='2'>대구</option> 
+                                                       
+                                                       <option value='부산' id='3'>부산</option> 
+                                                       
+                                                       <option value='경남' id='4'>경남</option> 
+                                                      </select>
+                                                       <input type='sbutton' id='selectsubmit' value='click' align='absmiddle' style="display:none">
+                                                       <input type='text' id='Searchword' placeholder='검색어를 입력해주세요' align='absmiddle' style="display:none">
+                                                       <input type='sbutton' id='SearchSubmit' value='click' align='absmiddle' style="display:none">
+          
+                                                   
+                                                      <table id='result_table' class="type07">
+                                                          <tr>
+                                                              <th> 축제명</th>
+                                                              <th >개최장소</th>
+                                                              <th >시작날짜</th>
+                                                              <th >종료날짜</th>
+                                                              <th >주최기관</th>
+                                                          </tr>
+                                                          each result in results  
+                                                              <tr>
+                                                                  <td> result.fname</td>
+                                                                  <td> result.address</td>
+                                                                  <td> result.start_date</td>
+                                                                  <td> result.end_date</td>
+                                                                  <td> result.dept</td>
+                                                              </tr> 
+                                                              </table>
+                                                              </section>  
+                                  </div>
+                              </div>
+
+      <!-- Scripts -->
+         <script src="assets/js/jquery.min.js"></script>
+         <script src="assets/js/jquery.scrollex.min.js"></script>
+         <script src="assets/js/jquery.scrolly.min.js"></script>
+         <script src="assets/js/skel.min.js"></script>
+         <script src="assets/js/util.js"></script>
+         <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+         <script src="assets/js/main.js"></script>
+
+   </body>
+</html>

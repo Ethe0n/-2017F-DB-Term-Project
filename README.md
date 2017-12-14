@@ -1,14 +1,18 @@
-# TCPServer
-TCP Server |Node.JS &lt;-------> Java|
+ï»¿# TCPServer
+TCP Server |Node.JS <-------> Java|
 
-# ½ÇÇà ¹æ¹ý
-1. Node.JS ¼³Ä¡
+# Database
+Oracle 11g
+
+# ì‹¤í–‰ ë°©ë²•
+1. Node.JS ì„¤ì¹˜
 https://nodejs.org/ko/
-¹öÀü 6 ÀÌ»ó
+ë²„ì „ 6 ì´ìƒ
 
-2. Java Eclipse ¼³Ä¡
+2. Java Eclipse ì„¤ì¹˜
 
-3. Java Eclipse¸¦ ÀÌ¿ëÇØ Java TCP ¼­¹ö °¡µ¿
+3. Java Eclipseë¥¼ ì´ìš©í•´ Java TCP ì„œë²„ ê°€ë™
 
-4. Express ¼­¹ö¿¡¼­ Ä¿¸Çµå Ã¢À» ¿­¾î 
-> node app ½ÇÇà 
+4. Express ì„œë²„ì—ì„œ ì»¤ë§¨ë“œ ì°½ì„ ì—´ì–´ 
+> node app 
+ìž…ë ¥í•˜ì—¬ ì‹¤í–‰
